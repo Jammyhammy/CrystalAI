@@ -63,8 +63,21 @@ namespace Crystal {
         return false;
 
       Action = _collection.Actions.Create(actionId);
+      Action.Parameters = Parameters?.Clone();
       return true;
     }
+
+    /// <summary>
+    /// Add the specified consideration
+    /// </summary>
+    /// <param name="consideration"></param>
+    /// <returns></returns>
+    public override bool AddConsideration(IConsideration consideration) {
+      if(!base.AddConsideration(consideration))
+        return false;
+      consideration.Parameters = Parameters?.Clone();
+      return true;
+    }	
 
     /// <summary>
     ///   Calculates the utility for this option given the provided context.
@@ -105,6 +118,7 @@ namespace Crystal {
       Weight = other.Weight;
       Measure = other.Measure?.Clone();
       Action = other.Action?.Clone();
+      Parameters = other.Parameters?.Clone();
     }
 
     /// <summary>
@@ -120,6 +134,18 @@ namespace Crystal {
       if(_collection.Add(this) == false)
         throw new OptionAlreadyExistsInCollectionException(nameId);
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="T:Crystal.Option"/> class with <see cref="T:Crystal.IParameterProvider"/> parameters.
+    /// </summary>
+    /// <param name="nameId">The name identifier.</param>
+    /// <param name="collection">The collection.</param>
+    /// <param name="parameters">The parameters.</param>
+    /// <exception cref="T:Crystal.Option.OptionAlreadyExistsInCollectionException"></exception>
+    public Option(string nameId, IOptionCollection collection, IParameterProvider parameters) : this(nameId, collection) {
+      Parameters = parameters;
+    }
+
 
     void Initialize() {
       Weight = 1.0f;

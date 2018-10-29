@@ -77,6 +77,12 @@ namespace Crystal {
     /// </summary>
     /// <value>The action status.</value>
     public ActionStatus ActionStatus { get; protected set; } = ActionStatus.Idle;
+    
+    /// <summary>
+    ///   Optional parameters for this action.
+    /// </summary>
+    /// <value>The action parameters.</value>
+    public IParameterProvider Parameters { get; set; }
 
     /// <summary>Executes the action.</summary>
     /// <param name="context">The context.</param>
@@ -164,7 +170,8 @@ namespace Crystal {
     protected ActionBase(ActionBase other) {
       NameId = other.NameId;
       _collection = other._collection;
-      Cooldown = other.Cooldown;     
+      Cooldown = other.Cooldown;
+      Parameters = other.Parameters?.Clone();     
     }
 
     /// <summary>
@@ -184,6 +191,18 @@ namespace Crystal {
       _collection = collection;
       AddSelfToCollection();
     }
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref="ActionBase"/> class.
+    /// </summary>
+    /// <param name="nameId">The name identifier.</param>
+    /// <param name="collection">The collection.</param>
+    /// <param name="parameters">The parameters.</param>
+    /// <exception cref="Crystal.ActionBase.NameIdEmptyOrNullException"></exception>
+    /// <exception cref="Crystal.ActionBase.ActionCollectionNullException"></exception>
+    public ActionBase(string nameId, IActionCollection collection, IParameterProvider parameters) : this(nameId, collection) {
+      Parameters = parameters;
+    }    
 
     bool CanExecute() {
       if(InCooldown) {

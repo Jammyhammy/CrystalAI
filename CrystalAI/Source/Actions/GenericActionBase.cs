@@ -75,6 +75,12 @@ namespace Crystal {
     ///   Gets the action status.
     /// </summary>
     public ActionStatus ActionStatus { get; protected set; } = ActionStatus.Idle;
+    
+    /// <summary>
+    ///   Optional parameters for this action.
+    /// </summary>
+    /// <value>The action parameters.</value>
+    public IParameterProvider Parameters { get; set; }
 
     /// <summary>
     ///   Executes the specified context.

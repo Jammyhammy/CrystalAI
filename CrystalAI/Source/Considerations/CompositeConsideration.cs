@@ -75,6 +75,12 @@ namespace Crystal {
     public Utility Utility { get; protected set; }
 
     /// <summary>
+    ///   Optional parameters for this action.
+    /// </summary>
+    /// <value>The action parameters.</value>
+    public IParameterProvider Parameters { get; set; }    
+
+    /// <summary>
     ///   Gets the weight of this consideration.
     /// </summary>
     public float Weight {
@@ -105,7 +111,7 @@ namespace Crystal {
     /// </summary>
     /// <param name="consideration"></param>
     /// <returns></returns>
-    public bool AddConsideration(IConsideration consideration) {
+    public virtual bool AddConsideration(IConsideration consideration) {
       if(consideration == null)
         return false;
       if(_considerations.Contains(consideration))
@@ -132,8 +138,11 @@ namespace Crystal {
       if(_collection.Contains(considerationId) == false)
         return false;
 
-      InternalAddConsideration(considerationId);
-      return true;
+      //InternalAddConsideration(considerationId);
+      //return true;
+
+      IConsideration consideration = _collection.Create(considerationId);
+      return AddConsideration(consideration);      
     }
 
     /// <summary>
