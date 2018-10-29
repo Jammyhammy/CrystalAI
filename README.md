@@ -27,3 +27,4 @@ You can have a look at the [Crystal AI Roadmap](https://trello.com/b/e3r5Zgrd/cr
 
 ## Copyright and License
 Code and documentation copyright 2016-2017 the Bismur Studios Ltd. and Ioannis Giagkiozis. This is the Community version of Crystal AI and is released under the GPL v3 license. A commercial version for Unity is available at the [Unity Asset Store](https://www.assetstore.unity3d.com/en/#!/content/82168). For further details on licensing please see [Crystal AI licensing page](https://theldoctor.github.io/CrystalAI/license/). 
+T
